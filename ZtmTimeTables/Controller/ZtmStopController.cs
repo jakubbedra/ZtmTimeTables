@@ -21,13 +21,15 @@ public class ZtmStopController : ControllerBase
         _ztmVehicleArrivalService = ztmVehicleArrivalService;
     }
 
-    [HttpGet("/api/stops")]
+    [HttpGet]
+    [Route("/api/stops")]
     public JsonResult GetStops()
     {
         return new JsonResult(GetStopsResponse.EntityToDto(_ztmStopService.FindAll()));
     }
 
-    [HttpGet("/api/stops/{id}")]
+    [HttpGet]
+    [Route("/api/stops/{id}")]
     public JsonResult GetStop(int id)
     {
         ZtmStop? stop = _ztmStopService.FindById(id);
@@ -39,7 +41,8 @@ public class ZtmStopController : ControllerBase
         return new JsonResult(GetStopResponse.EntityToDto(stop));
     }
 
-    [HttpPost("/api/stops")]
+    [HttpPost]
+    [Route("/api/stops")]
     public JsonResult CreateStop(CreateStopRequest request)
     {
         ZtmStop entity = CreateStopRequest.DtoToEntity(request);
@@ -47,7 +50,8 @@ public class ZtmStopController : ControllerBase
         return new JsonResult(Accepted());
     }
 
-    [HttpPut("/api/stops/{id}")]
+    [HttpPut]
+    [Route("/api/stops/{id}")]
     public JsonResult UpdateStop(int id, UpdateStopRequest request)
     {
         ZtmStop? stop = _ztmStopService.FindById(id);
@@ -62,7 +66,8 @@ public class ZtmStopController : ControllerBase
         return new JsonResult(Accepted());
     }
 
-    [HttpDelete("/api/stops/{id}")]
+    [HttpDelete]
+    [Route("/api/stops/{id}")]
     public JsonResult DeleteStop(int id)
     {
         ZtmStop? stop = _ztmStopService.FindById(id);
@@ -75,7 +80,8 @@ public class ZtmStopController : ControllerBase
         return new JsonResult(Ok());
     }
 
-    [HttpGet("/api/stops/{id}/arrivals")]
+    [HttpGet]
+    [Route("/api/stops/{id}/arrivals")]
     public JsonResult GetArrivals(int id)
     {
         ZtmStop? stop = _ztmStopService.FindById(id);

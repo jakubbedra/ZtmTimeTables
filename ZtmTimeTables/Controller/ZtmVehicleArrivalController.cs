@@ -23,13 +23,15 @@ public class ZtmVehicleArrivalController : ControllerBase
         _ztmVehicleArrivalService = ztmVehicleArrivalService;
     }
 
-    [HttpGet("/api/arrivals")]
+    [HttpGet]
+    [Route("/api/arrivals")]
     public JsonResult GetArrivals()
     {
         return new JsonResult(GetVehicleArrivalsResponse.EntityToDto(_ztmVehicleArrivalService.FindAll()));
     }
 
-    [HttpGet("/api/arrivals/{id}")]
+    [HttpGet]
+    [Route("/api/arrivals/{id}")]
     public JsonResult GetArrival(int id)
     {
         ZtmVehicleArrival? arrival = _ztmVehicleArrivalService.FindById(id);
@@ -41,7 +43,8 @@ public class ZtmVehicleArrivalController : ControllerBase
         return new JsonResult(GetVehicleArrivalResponse.EntityToDto(arrival));
     }
 
-    [HttpPost("/api/arrivals")]
+    [HttpPost]
+    [Route("/api/arrivals")]
     public JsonResult CreateArrival(CreateVehicleArrivalRequest request)
     {
         ZtmStop? stop = _ztmStopService.FindById(request.ZtmStopId);
@@ -62,7 +65,8 @@ public class ZtmVehicleArrivalController : ControllerBase
         return new JsonResult(Accepted());
     }
 
-    [HttpPut("/api/arrivals/{id}")]
+    [HttpPut]
+    [Route("/api/arrivals/{id}")]
     public JsonResult UpdateArrival(int id, UpdateArrivalRequest request)
     {
         ZtmVehicleArrival? arrival = _ztmVehicleArrivalService.FindById(id);
@@ -76,7 +80,8 @@ public class ZtmVehicleArrivalController : ControllerBase
         return new JsonResult(Accepted());
     }
 
-    [HttpDelete("/api/arrivals/{id}")]
+    [HttpDelete]
+    [Route("/api/arrivals/{id}")]
     public JsonResult DeleteArrival(int id)
     {
         ZtmVehicleArrival? arrival = _ztmVehicleArrivalService.FindById(id);

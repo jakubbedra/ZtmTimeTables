@@ -16,7 +16,8 @@ public class ZtmVehicleController : ControllerBase
         _ztmVehicleService = ztmVehicleService;
     }
 
-    [HttpGet("/api/vehicles")]
+    [HttpGet]
+    [Route(("/api/vehicles"))]
     public JsonResult GetVehicles()
     {
         return new JsonResult(GetVehiclesResponse.EntityToDto(_ztmVehicleService.FindAll()));
