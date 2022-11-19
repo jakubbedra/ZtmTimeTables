@@ -23,34 +23,12 @@ public class ApplicationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        /*
-        modelBuilder.Entity<Customer>()
-            .HasDiscriminator<char>("customerType")
-            .HasValue<Customer>('N')
-            .HasValue<WebCustomer>('W');
-        modelBuilder.Entity<Customer>()
-            .HasMany(c => c.Orders)
-            .WithOne(o => o.Customer);
-        
-        modelBuilder.Entity<Order>()
-            .HasDiscriminator<char>("orderType")
-            .HasValue<Order>('N')
-            .HasValue<WebOrder>('W');
-        modelBuilder.Entity<Order>()
-            .HasMany(o => o.Products)
-            .WithOne(op => op.Order);
-        
-        modelBuilder.Entity<Product>()
-            .HasMany(p => p.Orders)
-            .WithOne(op => op.Product);
-      
-        modelBuilder.Entity<OrderProduct>()
-            .HasOne(p => p.Product)
-            .WithMany(p => p.Orders);
-        modelBuilder.Entity<OrderProduct>()
-            .HasOne(p => p.Order)
-            .WithMany(o => o.Products);
-            */
+        modelBuilder.Entity<ZtmVehicle>()
+            .HasMany(v => v.Arrivals)
+            .WithOne(a => a.Vehicle);
+        modelBuilder.Entity<ZtmStop>()
+            .HasMany(s => s.VehicleArrivals)
+            .WithOne(a => a.ZtmStop);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
