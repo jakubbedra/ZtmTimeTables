@@ -9,7 +9,7 @@ public class GetStopsResponse
     public static GetStopsResponse EntityToDto(List<ZtmStop> entities)
     {
         List<GetStopResponse> dtos = new List<GetStopResponse>();
-        entities.ForEach(e => GetStopResponse.EntityToDto(e));
+        entities.ForEach(e => dtos.Add(GetStopResponse.EntityToDto(e)));
         return new GetStopsResponse() { Stops = dtos };
     }
     

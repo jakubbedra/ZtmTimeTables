@@ -4,7 +4,7 @@ namespace ZtmTimeTables.Dto.Stop;
 
 public class CreateStopRequest
 {
-    private string Location { get; set; }
+    public string Location { get; set; }
 
     public static ZtmStop DtoToEntity(CreateStopRequest request)
     {

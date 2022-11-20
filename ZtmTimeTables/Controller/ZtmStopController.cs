@@ -43,10 +43,10 @@ public class ZtmStopController : ControllerBase
 
     [HttpPost]
     [Route("/api/stops")]
-    public JsonResult CreateStop(CreateStopRequest request)
+    public JsonResult CreateVehicle(CreateStopRequest request)
     {
-        ZtmStop entity = CreateStopRequest.DtoToEntity(request);
-        _ztmStopService.AddZtmStop(entity);
+        ZtmStop stop = CreateStopRequest.DtoToEntity(request);
+        _ztmStopService.AddZtmStop(stop);
         return new JsonResult(Accepted());
     }
 

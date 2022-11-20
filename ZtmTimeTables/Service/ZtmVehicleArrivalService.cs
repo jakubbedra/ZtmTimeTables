@@ -37,7 +37,7 @@ public class ZtmVehicleArrivalService
         return _ztmVehicleArrivalRepository.FindByStopAndVehicle(stop, vehicle);
     }
     
-    public void AddZtmStop(ZtmVehicleArrival stop)
+    public void AddArrival(ZtmVehicleArrival stop)
     {
         _ztmVehicleArrivalRepository.Save(stop);
     }

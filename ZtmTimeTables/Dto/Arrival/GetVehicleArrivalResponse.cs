@@ -4,10 +4,10 @@ namespace ZtmTimeTables.Dto.Arrival;
 
 public class GetVehicleArrivalResponse
 {
-    private int Id { get; set; }
-    private int VehicleId { get; set; }
-    private int StopId { get; set; }
-    private DateTime ArrivalTime { get; set; }
+    public int Id { get; set; }
+    public int VehicleId { get; set; }
+    public int StopId { get; set; }
+    public DateTime ArrivalTime { get; set; }
 
     public static GetVehicleArrivalResponse EntityToDto(ZtmVehicleArrival entity)
     {

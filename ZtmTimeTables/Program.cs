@@ -1,5 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using ZtmTimeTables.Data;
-using ZtmTimeTables.Entity;
 using ZtmTimeTables.Repository;
 using ZtmTimeTables.Service;
 
@@ -21,12 +23,33 @@ builder.Services.AddScoped<ZtmVehicleService>();
 builder.Services.AddScoped<ZtmStopService>();
 builder.Services.AddScoped<ZtmVehicleArrivalService>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://localhost:7146/",
+            ValidAudience = "https://localhost:7146/",
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("DhftOS5uphK3vmCJQrexST1RsyjZBjXWRgJMFPU4")
+            )
+        };
+    });
+builder.Services.AddMvc();
+
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 //app.MapGet("/", () => "Hello World!");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

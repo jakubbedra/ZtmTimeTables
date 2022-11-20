@@ -146,3 +146,12 @@ C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\obj\Deb
 C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\obj\Debug\net6.0\ZtmTimeTables.pdb
 C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\obj\Debug\net6.0\ZtmTimeTables.genruntimeconfig.cache
 C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\obj\Debug\net6.0\ref\ZtmTimeTables.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

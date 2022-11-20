@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using ZtmTimeTables.Dto.Arrival;
 using ZtmTimeTables.Entity;
@@ -27,7 +28,8 @@ public class ZtmVehicleArrivalController : ControllerBase
     [Route("/api/arrivals")]
     public JsonResult GetArrivals()
     {
-        return new JsonResult(GetVehicleArrivalsResponse.EntityToDto(_ztmVehicleArrivalService.FindAll()));
+        GetVehicleArrivalsResponse dto = GetVehicleArrivalsResponse.EntityToDto(_ztmVehicleArrivalService.FindAll());
+        return new JsonResult(dto);
     }
 
     [HttpGet]
@@ -54,13 +56,14 @@ public class ZtmVehicleArrivalController : ControllerBase
         {
             return new JsonResult(NotFound());
         }
-  
+
         ZtmVehicleArrival arrival = new ZtmVehicleArrival()
         {
             Vehicle = vehicle,
             ZtmStop = stop,
             ArrivalTime = request.ArrivalTime
         };
+        _ztmVehicleArrivalService.AddArrival(arrival);
 
         return new JsonResult(Accepted());
     }
@@ -93,5 +96,4 @@ public class ZtmVehicleArrivalController : ControllerBase
         _ztmVehicleArrivalService.Delete(arrival);
         return new JsonResult(Ok());
     }
-    
 }
