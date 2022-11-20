@@ -56,9 +56,9 @@ public class LoginController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private User Authenticate(LoginRequest request)
+    private User? Authenticate(LoginRequest request)
     {
-        User current = Users.FirstOrDefault(
+        User? current = Users.FirstOrDefault(
             u => u.Username == request.Username && u.Password == request.Password
         );
         return current;
@@ -66,6 +66,7 @@ public class LoginController : ControllerBase
 
     private List<User> Users = new List<User>()
     {
-        new User() { Id = 1, Password = "admin", Username = "admin", Role = "Admin" }
+        new User() { Id = 1, Password = "admin", Username = "admin", Role = "Admin" },
+        new User() { Id = 1, Password = "user", Username = "user", Role = "User" }
     };
 }

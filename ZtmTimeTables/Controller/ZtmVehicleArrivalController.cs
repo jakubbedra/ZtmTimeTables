@@ -1,4 +1,5 @@
-using System.Text.Json;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZtmTimeTables.Dto.Arrival;
 using ZtmTimeTables.Entity;
@@ -26,12 +27,33 @@ public class ZtmVehicleArrivalController : ControllerBase
 
     [HttpGet]
     [Route("/api/arrivals")]
+    [Authorize(Roles = "Admin")]
     public JsonResult GetArrivals()
     {
+        User currentUser = GetCurrentUser();
         GetVehicleArrivalsResponse dto = GetVehicleArrivalsResponse.EntityToDto(_ztmVehicleArrivalService.FindAll());
         return new JsonResult(dto);
     }
 
+    
+    private User GetCurrentUser()
+    {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+        if (identity != null)
+        {
+            var userClaims = identity.Claims;
+
+            return new User
+            {
+                Username = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                Role = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value
+            };
+        }
+        return null;
+    }
+    
+    
     [HttpGet]
     [Route("/api/arrivals/{id}")]
     public JsonResult GetArrival(int id)
