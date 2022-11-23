@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZtmTimeTables.Dto.Arrival;
 using ZtmTimeTables.Dto.Stop;
@@ -10,87 +12,139 @@ namespace ZtmTimeTables.Controller;
 public class ZtmStopController : ControllerBase
 {
     private readonly ZtmStopService _ztmStopService;
-    private readonly ZtmVehicleArrivalService _ztmVehicleArrivalService;
+    private readonly UserService _userService;
+    private readonly UserStopService _userStopService;
 
     public ZtmStopController(
         ZtmStopService ztmStopService,
-        ZtmVehicleArrivalService ztmVehicleArrivalService
+        UserService userService,
+        UserStopService userStopService
     )
     {
         _ztmStopService = ztmStopService;
-        _ztmVehicleArrivalService = ztmVehicleArrivalService;
+        _userService = userService;
+        _userStopService = userStopService;
     }
-
+    
     [HttpGet]
     [Route("/api/stops")]
-    public JsonResult GetStops()
+    [AllowAnonymous]
+    public JsonResult GetAllStops()
     {
-        return new JsonResult(GetStopsResponse.EntityToDto(_ztmStopService.FindAll()));
-    }
-
-    [HttpGet]
-    [Route("/api/stops/{id}")]
-    public JsonResult GetStop(int id)
-    {
-        ZtmStop? stop = _ztmStopService.FindById(id);
-        if (stop == null)
+        User currentUser = GetCurrentUser();
+        if (currentUser == null)
         {
             return new JsonResult(NotFound());
         }
 
-        return new JsonResult(GetStopResponse.EntityToDto(stop));
+        int result = _ztmStopService.WriteAllToFile().Result;
+        Dictionary<DateOnly, ZtmStopCollection> all = _ztmStopService.FindAll();
+        List<ZtmStop> ztmStops = new List<ZtmStop>();
+        foreach (var (key, value) in all)
+        {
+            value.Stops.ForEach(s => ztmStops.Add(s));
+        }
+        
+        return new JsonResult(GetStopsResponse.EntityToDto(ztmStops));
+    }
+    
+    [HttpGet]
+    [Route("/api/users/current/stops")]
+    [AllowAnonymous]
+    public JsonResult GetAllUserStops()
+    {
+        User currentUser = GetCurrentUser();
+        if (currentUser == null)
+        {
+            return new JsonResult(NotFound());
+        }
+
+        User? user = _userService.FindByUsername(currentUser.Username);
+
+        List<UserStop> userStops = _userStopService.FindAllUserStops(user);
+        List<ZtmStop> ztmStops = new List<ZtmStop>();
+        
+        foreach (UserStop stop in userStops)
+            ztmStops.Add(_ztmStopService.FindById(stop.StopId));
+
+        return new JsonResult(GetStopsResponse.EntityToDto(ztmStops));
+    }
+    
+    [HttpGet]
+    [Route("/api/arrivals/{stopId}")]
+    [AllowAnonymous]
+    public JsonResult GetUserStops(int stopId)
+    {
+        User currentUser = GetCurrentUser();
+        if (currentUser == null)
+        {
+            return new JsonResult(NotFound());
+        }
+
+        ZtmArrivalsCollection result = _ztmStopService.FindArrivalsByStopId(stopId).Result;
+        
+        return new JsonResult(GetArrivalsResponse.EntityToDto(result));
     }
 
     [HttpPost]
-    [Route("/api/stops")]
-    public JsonResult CreateVehicle(CreateStopRequest request)
+    [Route("/api/users/current/stops")]
+    [Authorize]
+    public JsonResult AddStopBookmark(AddUserStopRequest request)
     {
-        ZtmStop stop = CreateStopRequest.DtoToEntity(request);
-        _ztmStopService.AddZtmStop(stop);
-        return new JsonResult(Accepted());
-    }
-
-    [HttpPut]
-    [Route("/api/stops/{id}")]
-    public JsonResult UpdateStop(int id, UpdateStopRequest request)
-    {
-        ZtmStop? stop = _ztmStopService.FindById(id);
-        if (stop == null)
+        User currentUser = GetCurrentUser();
+        if (currentUser == null)
         {
             return new JsonResult(NotFound());
         }
 
-        stop.Location = request.Location;
-        _ztmStopService.Update(stop);
-
-        return new JsonResult(Accepted());
+        UserStop stop = new UserStop()
+        {
+            StopId = request.StopId,
+            User = _userService.FindByUsername(currentUser.Username)
+        };
+        
+        _userStopService.AddUserStop(stop);
+        return new JsonResult(Ok());
     }
-
+    
     [HttpDelete]
-    [Route("/api/stops/{id}")]
-    public JsonResult DeleteStop(int id)
+    [Route("/api/users/current/stops/{stopId}")]
+    [Authorize]
+    public JsonResult AddStopBookmark(int stopId)
     {
-        ZtmStop? stop = _ztmStopService.FindById(id);
-        if (stop == null)
+        User currentUser = GetCurrentUser();
+        if (currentUser == null)
         {
             return new JsonResult(NotFound());
         }
 
-        _ztmStopService.Delete(stop);
+        User? user = _userService.FindByUsername(currentUser.Username);
+
+        UserStop? stop = _userStopService.FindByStopIdAndUser(stopId, user);
+        if (stop == null)
+        {
+            return new JsonResult(NotFound());
+        }
+        _userStopService.RemoveUserStop(stop);
+
         return new JsonResult(Ok());
     }
 
-    [HttpGet]
-    [Route("/api/stops/{id}/arrivals")]
-    public JsonResult GetArrivals(int id)
+    private User GetCurrentUser()
     {
-        ZtmStop? stop = _ztmStopService.FindById(id);
-        if (stop == null)
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+        if (identity != null)
         {
-            return new JsonResult(NotFound());
+            var userClaims = identity.Claims;
+
+            return new User
+            {
+                Username = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                Role = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value
+            };
         }
 
-        List<ZtmVehicleArrival> arrivals = _ztmVehicleArrivalService.FindByStop(stop);
-        return new JsonResult(GetVehicleArrivalsResponse.EntityToDto(arrivals));
+        return null;
     }
 }

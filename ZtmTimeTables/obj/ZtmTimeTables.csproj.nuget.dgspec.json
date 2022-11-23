@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\The Konfyrm\\RiderProjects\\zto22_czw\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj": {}
+    "C:\\Users\\theKonfyrm\\RiderProjects\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj": {}
   },
   "projects": {
-    "C:\\Users\\The Konfyrm\\RiderProjects\\zto22_czw\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj": {
+    "C:\\Users\\theKonfyrm\\RiderProjects\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\The Konfyrm\\RiderProjects\\zto22_czw\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj",
+        "projectUniqueName": "C:\\Users\\theKonfyrm\\RiderProjects\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj",
         "projectName": "ZtmTimeTables",
-        "projectPath": "C:\\Users\\The Konfyrm\\RiderProjects\\zto22_czw\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj",
-        "packagesPath": "C:\\Users\\The Konfyrm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\The Konfyrm\\RiderProjects\\zto22_czw\\ZtmTimeTables\\ZtmTimeTables\\obj\\",
+        "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\ZtmTimeTables\\ZtmTimeTables\\ZtmTimeTables.csproj",
+        "packagesPath": "C:\\Users\\theKonfyrm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\theKonfyrm\\RiderProjects\\ZtmTimeTables\\ZtmTimeTables\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\The Konfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\theKonfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

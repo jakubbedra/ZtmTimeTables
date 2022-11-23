@@ -5,30 +5,18 @@ namespace ZtmTimeTables.Data;
 
 public class ApplicationDbContext : DbContext
 {
-//    public DbSet<Product> Products { get; set; }
-//    public DbSet<Customer> Customers { get; set; }
-//    public DbSet<Order> Orders { get; set; }
+    public DbSet<User>? Users { get; set; }
+    public DbSet<UserStop>? UserStops { get; set; }
     
-//    public DbSet<OrderProduct> OrderProducts { get; set; }
-
-    
-
-    public DbSet<ZtmStop> ZtmStops { get; set; }
-    public DbSet<ZtmVehicle> ZtmVehicles { get; set; }
-    public DbSet<ZtmVehicleArrival> ZtmVehicleArrivals { get; set; }
-
     public ApplicationDbContext() : base()
     {
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ZtmVehicle>()
-            .HasMany(v => v.Arrivals)
-            .WithOne(a => a.Vehicle);
-        modelBuilder.Entity<ZtmStop>()
-            .HasMany(s => s.VehicleArrivals)
-            .WithOne(a => a.ZtmStop);
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.BookmarkedStops)
+            .WithOne(b => b.User);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

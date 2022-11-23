@@ -6,17 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ZtmTimeTables.Dto.User;
 using ZtmTimeTables.Entity;
+using ZtmTimeTables.Service;
 
 namespace ZtmTimeTables.Controller;
 
 [ApiController]
 public class LoginController : ControllerBase
 {
-    private IConfiguration _config;
+    private readonly UserService _userService;
 
-    public LoginController(IConfiguration config)
+    public LoginController(UserService userService)
     {
-        _config = config;
+        _userService = userService;
     }
 
     [HttpPost]
@@ -58,9 +59,12 @@ public class LoginController : ControllerBase
 
     private User? Authenticate(LoginRequest request)
     {
-        User? current = Users.FirstOrDefault(
-            u => u.Username == request.Username && u.Password == request.Password
-        );
+        User? current = _userService.FindByUsername(request.Username);
+        if (current == null) return null;
+        if (current.Password != request.Password) return null;
+        //    Users.FirstOrDefault(
+        //    u => u.Username == request.Username && u.Password == request.Password
+        //);
         return current;
     }
 

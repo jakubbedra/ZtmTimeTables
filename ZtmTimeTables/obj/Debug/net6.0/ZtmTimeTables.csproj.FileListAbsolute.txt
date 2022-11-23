@@ -164,3 +164,4 @@ C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\bin\Deb
 C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\The Konfyrm\RiderProjects\zto22_czw\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\theKonfyrm\RiderProjects\ZtmTimeTables\ZtmTimeTables\bin\Debug\net6.0\Cache\stops.json

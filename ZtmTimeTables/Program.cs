@@ -14,14 +14,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>();
 
 // repositories
-builder.Services.AddScoped<ZtmVehicleRepository>();
-builder.Services.AddScoped<ZtmStopRepository>();
-builder.Services.AddScoped<ZtmVehicleArrivalRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserStopRepository>();
 
 // services
-builder.Services.AddScoped<ZtmVehicleService>();
 builder.Services.AddScoped<ZtmStopService>();
-builder.Services.AddScoped<ZtmVehicleArrivalService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<UserStopService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
